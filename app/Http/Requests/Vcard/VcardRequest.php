@@ -27,6 +27,7 @@ class VcardRequest extends FormRequest
             'phone_number' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
             'company' => 'nullable|string|max:255',
+            'user_id' => 'nullable|integer',
             'address1' => 'nullable|string|max:255',
             'address2' => 'nullable|string|max:255',
             'social_links' => 'nullable|array',
