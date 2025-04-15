@@ -89,6 +89,17 @@
         </div>
         <form action="{{ route('generate.qrcode') }}" method="POST">
             @csrf
+
+            <!-- Select User Type -->
+            <div class="mb-3">
+                <label for="type" class="form-label">Select Type</label>
+                <select id="type" name="type" class="form-control" onchange="toggleSocialFields()">
+                    <option value="">-- Select --</option>
+                    <option value="user">User</option>
+                    <option value="company">Company</option>
+                </select>
+            </div>
+
             <div class="mb-3">
                 <label for="name" class="form-label">Full Name</label>
                 <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required>
@@ -109,23 +120,42 @@
                 <label for="location" class="form-label">Location</label>
                 <input type="text" id="location" name="location" class="form-control" placeholder="Enter your address (e.g., Street, City, State, Country)" required>
             </div>
-            <div class="mb-3">
-                <label for="facebook" class="form-label">Facebook Profile</label>
-                <input type="url" id="facebook" name="facebook" class="form-control" placeholder="Enter your Facebook profile URL">
+
+            <!-- Social Fields (Shown only when "User" is selected) -->
+            <div id="socialFields" style="display: none;">
+                <div class="mb-3">
+                    <label for="facebook" class="form-label">Facebook Profile</label>
+                    <input type="url" id="facebook" name="facebook" class="form-control" placeholder="Enter your Facebook profile URL">
+                </div>
+                <div class="mb-3">
+                    <label for="twitter" class="form-label">Twitter Profile</label>
+                    <input type="url" id="twitter" name="twitter" class="form-control" placeholder="Enter your Twitter profile URL">
+                </div>
+                <div class="mb-3">
+                    <label for="linkedin" class="form-label">LinkedIn Profile</label>
+                    <input type="url" id="linkedin" name="linkedin" class="form-control" placeholder="Enter your LinkedIn profile URL">
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="twitter" class="form-label">Twitter Profile</label>
-                <input type="url" id="twitter" name="twitter" class="form-control" placeholder="Enter your Twitter profile URL">
-            </div>
-            <div class="mb-3">
-                <label for="linkedin" class="form-label">LinkedIn Profile</label>
-                <input type="url" id="linkedin" name="linkedin" class="form-control" placeholder="Enter your LinkedIn profile URL">
-            </div>
+
             <button type="submit" class="btn btn-primary w-100">Generate QR Code</button>
         </form>
         <div class="form-footer">
             <p>Need help? <a href="#">Contact us</a></p>
         </div>
     </div>
+
+    <!-- Script to toggle social fields -->
+    <script>
+        function toggleSocialFields() {
+            const selectedType = document.getElementById("type").value;
+            const socialFields = document.getElementById("socialFields");
+
+            if (selectedType === "user") {
+                socialFields.style.display = "block";
+            } else {
+                socialFields.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
