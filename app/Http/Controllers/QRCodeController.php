@@ -52,7 +52,7 @@ class QRCodeController extends Controller
             $contactInfo .= "LABEL:$location\n";
         
             // Structured address (used for importing into contacts)
-            $contactInfo .= "ADR;TYPE=HOME:;;$street;$city;$state;;$country\n";
+            $contactInfo .= "ADR;TYPE=Location:;;$street;$city;$state;;$country\n";
         }
         
     
