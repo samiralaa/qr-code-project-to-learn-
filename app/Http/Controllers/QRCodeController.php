@@ -1,3 +1,5 @@
+<?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -27,7 +29,7 @@ class QRCodeController extends Controller
             $facebook = $request->facebook;
             $twitter = $request->twitter;
             $linkedin = $request->linkedin;
-            $website = $request->website; // Use submitted website if available
+            $website = null; // optional for user
         }
     
         // Create vCard
@@ -53,15 +55,11 @@ class QRCodeController extends Controller
             $contactInfo .= "ADR;TYPE=Location:;;$street;$city;$state;;$country\n";
         }
         
-        // Add social media links
+    
         if ($facebook) $contactInfo .= "URL;TYPE=Facebook:$facebook\n";
         if ($twitter) $contactInfo .= "URL;TYPE=Twitter:$twitter\n";
         if ($linkedin) $contactInfo .= "URL;TYPE=LinkedIn:$linkedin\n";
-        
-        // Only add website if jobTitle is provided
-        if ($jobTitle && $website) {
-            $contactInfo .= "URL:$website\n";
-        }
+        if (!empty($website)) $contactInfo .= "URL:$website\n";
     
         $contactInfo .= "END:VCARD\n";
     
@@ -83,4 +81,5 @@ class QRCodeController extends Controller
     
         return response()->download($filePath)->deleteFileAfterSend(true);
     }
+    
 }
